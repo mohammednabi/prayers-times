@@ -1,0 +1,53 @@
+/* eslint-disable react-refresh/only-export-components */
+import { useContext, useEffect } from "react";
+import { IoLocationOutline } from "react-icons/io5";
+import { StoreContext } from "../contexts/StoreContext";
+import { observer } from "mobx-react-lite";
+
+const SalahTime = () => {
+  const { prayers } = useContext(StoreContext);
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      prayers.getTheNextPray();
+    }, 1000);
+
+    return () => {
+      clearInterval(intervalId);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  return (
+    <div className="w-full relative h-auto py-5 rounded-3xl bg-lightGreen mt-10 flex justify-center items-center overflow-hidden">
+      <div className="relative z-10 flex flex-col justify-center items-center">
+        <h1 className="text-white text-xl"> {prayers.nextPrayObj.nextPray}</h1>
+        <h1 className="text-white text-5xl font-bold pt-4">
+          {prayers.nextPrayObj.nextPrayTime}
+        </h1>
+        <div className="flex flex-col justify-center gap-1 mt-5">
+          <h1 className="text-white/50 text-sm text-center">
+            {" "}
+            باقي على الصلاة
+          </h1>
+          <h1 className="text-white text-lg text-center"> {prayers.timer}</h1>
+        </div>
+        <div className="flex items-center  text-white text-sm mt-10">
+          <IoLocationOutline />
+          <h1> مصر , الأقصر</h1>
+        </div>
+      </div>
+
+      <div className="w-full h-full  absolute ">
+        <img
+          src="/islamicBackground.jpg"
+          alt=""
+          className="w-full h-full object-cover  absolute "
+        />
+        <div className="bg-black/50 absolute  w-full h-full" />
+      </div>
+    </div>
+  );
+};
+
+export default observer(SalahTime);
