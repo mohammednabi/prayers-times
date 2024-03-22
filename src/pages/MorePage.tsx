@@ -1,5 +1,29 @@
+import { Container } from "@mui/material";
+import MoreElementCircle from "../components/MoreElementCircle";
+
 const MorePage = () => {
-  return <div>MorePage</div>;
+  const elements = [
+    {
+      title: "السبحة الالكترونية",
+      imgsrc: "/tasbih (1).png",
+      link: "/tasbih",
+    },
+  ];
+
+  return (
+    <Container maxWidth="sm" className="overflow-x-hidden py-10 ">
+      <div className="grid grid-cols-3 gap-5">
+        {elements.map((item) => (
+          <MoreElementCircle
+            key={item.title}
+            title={item.title}
+            imgSrc={item.imgsrc}
+            link={item.link}
+          />
+        ))}
+      </div>
+    </Container>
+  );
 };
 
 export default MorePage;

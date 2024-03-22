@@ -6,7 +6,7 @@ import { BsCloudSunFill } from "react-icons/bs";
 import { IoMoon } from "react-icons/io5";
 import { BsFillSunsetFill } from "react-icons/bs";
 import { BsFillSunriseFill } from "react-icons/bs";
-import { ReactNode, useContext } from "react";
+import { ReactNode, useContext, useEffect } from "react";
 
 import { StoreContext } from "../contexts/StoreContext";
 import { observer } from "mobx-react-lite";
@@ -14,6 +14,12 @@ import { getThePrayTime } from "../firebase/firebaseCustomFunctions";
 
 const SalawatAllTimes = () => {
   const { prayers } = useContext(StoreContext);
+
+  useEffect(() => {
+    prayers.getTodayPraysTimes();
+    prayers.getTommorowPraysTimes();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const salawat: { title: string; icon: ReactNode; time?: string }[] = [
     {

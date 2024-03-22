@@ -13,6 +13,7 @@ type nextPrayType = {
 
 export class PrayersStore {
   todayTimes: prayTime = {} as prayTime;
+  tommorowTimes: prayTime = {} as prayTime;
   nextPrayObj: nextPrayType = {
     nextPray: "صلاة المغرب",
     nextPrayTime: "",
@@ -38,10 +39,27 @@ export class PrayersStore {
     });
   };
 
+  getTommorowPraysTimes = async () => {
+    const today = new Date();
+    const tommorow = new Date();
+
+    tommorow.setDate(today.getDate() + 1);
+
+    const docRef = doc(db, "months", allMonths[tommorow.getMonth()]);
+    await getDoc(docRef).then((snapshot) => {
+      runInAction(() => {
+        this.tommorowTimes = snapshot.data()?.days[`${tommorow.getDate()}`];
+      });
+
+      // const times: prayTime = snapshot.data()?.days[`${today.getDate()}`];
+      // return times;
+    });
+  };
+
   getTheNextPray = async () => {
     const timeNow = new Date();
 
-    this.getTodayPraysTimes().then(() => {
+    if (this.todayTimes.fajr.seconds > 0 && this.todayTimes.fajr.seconds > 0) {
       const prays: {
         prayTitle?: string;
         prayTime?: string;
@@ -87,14 +105,29 @@ export class PrayersStore {
         }
       });
 
-      runInAction(() => {
-        this.nextPrayObj = {
-          nextPray: next?.prayTitle,
-          nextPrayTime: next?.prayTime,
-          nextPrayTimeSeconds: next?.prayTimeInSeconds,
-        };
-      });
-    });
+      if (next) {
+        runInAction(() => {
+          this.nextPrayObj = {
+            nextPray: next?.prayTitle,
+            nextPrayTime: next?.prayTime,
+            nextPrayTimeSeconds: next?.prayTimeInSeconds,
+          };
+        });
+      } else {
+        const differneTimeInSeconds =
+          (new Date(this.tommorowTimes.fajr?.seconds * 1000).getTime() -
+            timeNow.getTime()) /
+          1000;
+        runInAction(() => {
+          this.timer = this.formatTime(differneTimeInSeconds);
+          this.nextPrayObj = {
+            nextPray: "صلاة الفجر غدا",
+            nextPrayTime: getThePrayTime(this.tommorowTimes.fajr?.seconds),
+            nextPrayTimeSeconds: this.tommorowTimes.fajr?.seconds,
+          };
+        });
+      }
+    }
   };
 
   formatTime = (seconds: number) => {

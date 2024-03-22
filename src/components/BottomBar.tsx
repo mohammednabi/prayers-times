@@ -18,7 +18,7 @@ const BottomBar = () => {
   React.useEffect(() => {
     pathname === "/"
       ? setValue(0)
-      : pathname === "/more"
+      : pathname === "/more" || pathname === "/tasbih"
       ? setValue(1)
       : pathname === "/pray"
       ? setValue(2)

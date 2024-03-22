@@ -9,6 +9,7 @@ export default {
       },
       colors: {
         beige: "#e8e0d5",
+        lightBeige: "#f2ede6",
         lightBrown: "#690f20",
         darkGreen: "#061f29",
         lightGreen: "#1d9b76",

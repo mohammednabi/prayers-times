@@ -10,6 +10,7 @@ import Loading from "./components/Loading";
 import StoreContextProvider from "./components/StoreContextProvider";
 import MorePage from "./pages/MorePage";
 import PrayPage from "./pages/PrayPage";
+import Tasbih from "./pages/Tasbih";
 
 const App = () => {
   return (
@@ -19,8 +20,9 @@ const App = () => {
           <Routes>
             <Route path="/" element={<MainLayout />}>
               <Route path="" element={<Home />} />
-              <Route path="more" element={<MorePage />} />
+              <Route path="more" element={<MorePage />}></Route>
               <Route path="pray" element={<PrayPage />} />
+              <Route path="tasbih" element={<Tasbih />} />
             </Route>
           </Routes>
         </StoreContextProvider>
