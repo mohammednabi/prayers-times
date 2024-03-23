@@ -7,6 +7,10 @@ import { observer } from "mobx-react-lite";
 const SalahTime = () => {
   const { prayers } = useContext(StoreContext);
 
+  const alertUser = () => {
+    alert("لا يمكنك تغيير الموقع في الوقت الحالي ");
+  };
+
   useEffect(() => {
     const intervalId = setInterval(() => {
       prayers.getTheNextPray();
@@ -34,7 +38,10 @@ const SalahTime = () => {
         </div>
         <div className="flex items-center  text-white text-sm mt-10">
           <IoLocationOutline />
-          <h1> مصر , الأقصر</h1>
+          <h1 className="cursor-pointer" onClick={alertUser}>
+            {" "}
+            مصر , الأقصر
+          </h1>
         </div>
       </div>
 
