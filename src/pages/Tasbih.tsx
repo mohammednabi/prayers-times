@@ -8,6 +8,7 @@ import {
   SelectChangeEvent,
 } from "@mui/material";
 import { useState } from "react";
+import { BiEdit } from "react-icons/bi";
 import { GrPowerReset } from "react-icons/gr";
 
 const Tasbih = () => {
@@ -44,13 +45,13 @@ const Tasbih = () => {
         <h1 className="text-center text-darkGreen select-none text-5xl text-bold">
           السبحة الالكترونية
         </h1>
-        <div className="grid grid-cols-2 w-full items-center justify-center ">
+        <div className="grid grid-cols-2 w-full items-center justify-end  ">
           <GrPowerReset
-            className="text-darkGreen text-3xl select-none cursor-pointer"
+            className="text-darkGreen text-3xl select-none cursor-pointer self-end"
             onClick={reset}
           />
 
-          <FormControl fullWidth>
+          <FormControl fullWidth className="self-end">
             <FormLabel
               classes={{ focused: "text-lightGreen" }}
               id="demo-row-radio-buttons-group-label"
@@ -101,9 +102,12 @@ const Tasbih = () => {
             <h1 className="text-center text-darkGreen text-7xl ">{count}</h1>
           </div>
 
-          <h1 contentEditable className="text-center text-2xl  mt-3">
-            سبحان الله
-          </h1>
+          <div className="flex justify-center items-center">
+            <h1 contentEditable className="text-center text-2xl  mt-3">
+              سبحان الله
+            </h1>
+            <BiEdit className="text-center text-xl opacity-25" />
+          </div>
         </Container>
       </div>
     </Container>
