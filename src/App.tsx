@@ -11,6 +11,7 @@ import StoreContextProvider from "./components/StoreContextProvider";
 import MorePage from "./pages/MorePage";
 import PrayPage from "./pages/PrayPage";
 import Tasbih from "./pages/Tasbih";
+import Admin from "./pages/Admin";
 
 const App = () => {
   return (
@@ -24,6 +25,7 @@ const App = () => {
               <Route path="pray" element={<PrayPage />} />
               <Route path="tasbih" element={<Tasbih />} />
             </Route>
+            <Route path="/admin" element={<Admin />} />
           </Routes>
         </StoreContextProvider>
       </div>

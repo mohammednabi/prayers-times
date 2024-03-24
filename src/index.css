@@ -25,6 +25,13 @@ html {
   opacity: 35%;
 }
 
+#admin-body {
+  background: url("/overlay.jpg");
+  background-repeat: repeat;
+  background-size: contain;
+  background-blend-mode: multiply;
+}
+
 /* width */
 ::-webkit-scrollbar {
   width: 0;

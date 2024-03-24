@@ -16,8 +16,15 @@ const SalawatAllTimes = () => {
   const { prayers } = useContext(StoreContext);
 
   useEffect(() => {
-    prayers.getTodayPraysTimes();
-    prayers.getTommorowPraysTimes();
+    if (!prayers.todayTimes || Object.keys(prayers.todayTimes).length === 0) {
+      prayers.getTodayPraysTimes();
+    }
+    if (
+      !prayers.tommorowTimes ||
+      Object.keys(prayers.tommorowTimes).length === 0
+    ) {
+      prayers.getTommorowPraysTimes();
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
