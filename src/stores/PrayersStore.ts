@@ -1,9 +1,10 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { doc, getDoc } from "firebase/firestore";
+import { doc, getDoc, setDoc } from "firebase/firestore";
 import { makeAutoObservable, runInAction } from "mobx";
 import { db } from "../firebase/configration";
 import { allMonths, getThePrayTime } from "../firebase/firebaseCustomFunctions";
 import { prayTime } from "../specificTypes";
+import { FieldValues } from "react-hook-form";
 
 type nextPrayType = {
   nextPray?: string;
@@ -21,6 +22,8 @@ export class PrayersStore {
   } as nextPrayType;
   timer: string = "";
 
+  allDays?: object = {};
+
   constructor() {
     makeAutoObservable(this);
   }
@@ -31,6 +34,8 @@ export class PrayersStore {
     const docRef = doc(db, "months", allMonths[today.getMonth()]);
     await getDoc(docRef).then((snapshot) => {
       runInAction(() => {
+        console.log("this is all days :", snapshot.data());
+        this.allDays = snapshot.data()?.days;
         this.todayTimes = snapshot.data()?.days[`${today.getDate()}`];
       });
 
@@ -138,5 +143,28 @@ export class PrayersStore {
     return `${hours.toString().padStart(2, "0")}:${minutes
       .toString()
       .padStart(2, "0")}:${remainingSeconds.toString().padStart(2, "0")}`;
+  };
+
+  addDayTimes = async (monthIndex: number, formData: FieldValues) => {
+    this.getTodayPraysTimes().then(() => {
+      if (this.allDays && Object.keys(this.allDays).length > 0) {
+        const theNewData = {
+          days: {
+            ...this.allDays,
+            [`${new Date(formData.fajr).getDate()}`]: {
+              fajr: new Date(formData.fajr),
+              sunrise: new Date(formData.sunrise),
+              duhr: new Date(formData.duhr),
+              asr: new Date(formData.asr),
+              mgrb: new Date(formData.mgrb),
+              asha: new Date(formData.asha),
+            },
+          },
+        };
+
+        // console.log("done inside the function else");
+        return setDoc(doc(db, "months", allMonths[monthIndex]), theNewData);
+      }
+    });
   };
 }

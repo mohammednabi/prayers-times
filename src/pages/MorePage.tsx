@@ -8,11 +8,16 @@ const MorePage = () => {
       imgsrc: "/tasbih (1).png",
       link: "/tasbih",
     },
+    {
+      title: "دعاء ختم القرآن",
+      imgsrc: "/open-hands.png",
+      link: "/khatm",
+    },
   ];
 
   return (
     <Container maxWidth="sm" className="overflow-x-hidden py-10 ">
-      <div className="grid grid-cols-3 gap-5">
+      <div className="grid grid-cols-1 gap-5">
         {elements.map((item) => (
           <MoreElementCircle
             key={item.title}
