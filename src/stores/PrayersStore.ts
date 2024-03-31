@@ -35,7 +35,7 @@ export class PrayersStore {
     await getDoc(docRef).then((snapshot) => {
       runInAction(() => {
         console.log("this is all days :", snapshot.data());
-        this.allDays = snapshot.data()?.days;
+        // this.allDays = snapshot.data()?.days;
         this.todayTimes = snapshot.data()?.days[`${today.getDate()}`];
       });
 
@@ -145,19 +145,52 @@ export class PrayersStore {
       .padStart(2, "0")}:${remainingSeconds.toString().padStart(2, "0")}`;
   };
 
+  getMonthDaysPraysTimes = async (monthIndex: number) => {
+    // const today = new Date();
+
+    const docRef = doc(db, "months", allMonths[monthIndex]);
+    await getDoc(docRef).then((snapshot) => {
+      runInAction(() => {
+        console.log("this is all days of the month :", snapshot.data());
+        this.allDays = snapshot.data()?.days;
+        // this.todayTimes = snapshot.data()?.days[`${today.getDate()}`];
+      });
+
+      // const times: prayTime = snapshot.data()?.days[`${today.getDate()}`];
+      // return times;
+    });
+  };
+
   addDayTimes = async (monthIndex: number, formData: FieldValues) => {
-    this.getTodayPraysTimes().then(() => {
+    this.getMonthDaysPraysTimes(monthIndex).then(() => {
       if (this.allDays && Object.keys(this.allDays).length > 0) {
         const theNewData = {
           days: {
             ...this.allDays,
-            [`${new Date(formData.fajr).getDate()}`]: {
-              fajr: new Date(formData.fajr),
-              sunrise: new Date(formData.sunrise),
-              duhr: new Date(formData.duhr),
-              asr: new Date(formData.asr),
-              mgrb: new Date(formData.mgrb),
-              asha: new Date(formData.asha),
+            [`${new Date(formData.day).getDate()}`]: {
+              fajr: new Date(`${formData.day} ${formData.fajr}`),
+              sunrise: new Date(`${formData.day} ${formData.sunrise}`),
+              duhr: new Date(`${formData.day} ${formData.duhr}`),
+              asr: new Date(`${formData.day} ${formData.asr}`),
+              mgrb: new Date(`${formData.day} ${formData.mgrb}`),
+              asha: new Date(`${formData.day} ${formData.asha}`),
+            },
+          },
+        };
+
+        // console.log("done inside the function else");
+        return setDoc(doc(db, "months", allMonths[monthIndex]), theNewData);
+      } else {
+        const theNewData = {
+          days: {
+            ...this.allDays,
+            [`${new Date(formData.day).getDate()}`]: {
+              fajr: new Date(`${formData.day} ${formData.fajr}`),
+              sunrise: new Date(`${formData.day} ${formData.sunrise}`),
+              duhr: new Date(`${formData.day} ${formData.duhr}`),
+              asr: new Date(`${formData.day} ${formData.asr}`),
+              mgrb: new Date(`${formData.day} ${formData.mgrb}`),
+              asha: new Date(`${formData.day} ${formData.asha}`),
             },
           },
         };

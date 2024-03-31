@@ -1,5 +1,5 @@
 /* eslint-disable react-refresh/only-export-components */
-import { useContext, useEffect } from "react";
+import { useCallback, useContext, useEffect } from "react";
 import { IoLocationOutline } from "react-icons/io5";
 import { StoreContext } from "../contexts/StoreContext";
 import { observer } from "mobx-react-lite";
@@ -7,9 +7,9 @@ import { observer } from "mobx-react-lite";
 const SalahTime = () => {
   const { prayers } = useContext(StoreContext);
 
-  const alertUser = () => {
+  const alertUser = useCallback(() => {
     alert("لا يمكنك تغيير الموقع في الوقت الحالي ");
-  };
+  }, []);
 
   useEffect(() => {
     const intervalId = setInterval(() => {

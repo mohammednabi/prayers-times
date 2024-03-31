@@ -13,77 +13,91 @@ const NewDayForm = () => {
     <div>
       <form
         onSubmit={handleSubmit((data) => {
-          //   toast.success(`${data}`);
-          //   console.log({ data });
-          //   console.log();
-
+          // const fajrDate = new Date(`${data.day} ${data.fajr}`);
+          // toast.success(`${data}`);
+          // console.log({ data });
+          // console.log();
           prayers
-            .addDayTimes(new Date(data.fajr).getMonth(), data)
+            .addDayTimes(new Date(data.day).getMonth(), data)
             .then(() => {
               toast.success("added succesfully");
             })
             .catch(() => {
               toast.error("failed to add");
             });
+
+          // console.log({ data });
+          // console.log({ fajrDate });
         })}
-        className="flex flex-col items-center gap-5"
+        className="grid grid-cols-2  items-center gap-40"
       >
         <div className="flex flex-col gap-2">
-          <label className="text-xl">الفجر</label>
+          <label className="text-xl">اختر اليوم</label>
           <input
-            {...register("fajr")}
+            {...register("day")}
             required
-            type="datetime-local"
+            type="date"
             className="p-2 border-darkGreen border-solid border-2 outline-none"
           />
         </div>
-        <div className="flex flex-col gap-2">
-          <label className="text-xl">الشروق</label>
-          <input
-            {...register("sunrise")}
-            required
-            type="datetime-local"
-            className="p-2 border-darkGreen border-solid border-2 outline-none"
-          />
-        </div>
-        <div className="flex flex-col gap-2">
-          <label className="text-xl">الظهر</label>
-          <input
-            {...register("duhr")}
-            required
-            type="datetime-local"
-            className="p-2 border-darkGreen border-solid border-2 outline-none"
-          />
-        </div>
-        <div className="flex flex-col gap-2">
-          <label className="text-xl">العصر</label>
-          <input
-            {...register("asr")}
-            required
-            type="datetime-local"
-            className="p-2 border-darkGreen border-solid border-2 outline-none"
-          />
-        </div>
-        <div className="flex flex-col gap-2">
-          <label className="text-xl">المغرب</label>
-          <input
-            {...register("mgrb")}
-            required
-            type="datetime-local"
-            className="p-2 border-darkGreen border-solid border-2 outline-none"
-          />
-        </div>
-        <div className="flex flex-col gap-2">
-          <label className="text-xl">العشاء</label>
-          <input
-            {...register("asha")}
-            required
-            type="datetime-local"
-            className="p-2 border-darkGreen border-solid border-2 outline-none"
-          />
-        </div>
+        <div className="flex flex-col gap-5">
+          <div className="flex flex-col gap-2">
+            <label className="text-xl">الفجر</label>
+            <input
+              {...register("fajr")}
+              required
+              type="time"
+              className="p-2 border-darkGreen border-solid border-2 outline-none"
+            />
+          </div>
+          <div className="flex flex-col gap-2">
+            <label className="text-xl">الشروق</label>
+            <input
+              {...register("sunrise")}
+              required
+              type="time"
+              className="p-2 border-darkGreen border-solid border-2 outline-none"
+            />
+          </div>
+          <div className="flex flex-col gap-2">
+            <label className="text-xl">الظهر</label>
+            <input
+              {...register("duhr")}
+              required
+              type="time"
+              className="p-2 border-darkGreen border-solid border-2 outline-none"
+            />
+          </div>
+          <div className="flex flex-col gap-2">
+            <label className="text-xl">العصر</label>
+            <input
+              {...register("asr")}
+              required
+              type="time"
+              className="p-2 border-darkGreen border-solid border-2 outline-none"
+            />
+          </div>
+          <div className="flex flex-col gap-2">
+            <label className="text-xl">المغرب</label>
+            <input
+              {...register("mgrb")}
+              required
+              type="time"
+              className="p-2 border-darkGreen border-solid border-2 outline-none"
+            />
+          </div>
+          <div className="flex flex-col gap-2">
+            <label className="text-xl">العشاء</label>
+            <input
+              {...register("asha")}
+              required
+              type="time"
+              className="p-2 border-darkGreen border-solid border-2 outline-none"
+            />
+          </div>
 
-        <button className="text-lightBeige bg-black p-3 w-full">ادخال</button>
+          <button className="text-lightBeige bg-black p-3 w-full">ادخال</button>
+        </div>
       </form>
     </div>
   );
