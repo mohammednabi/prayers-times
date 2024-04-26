@@ -18,6 +18,7 @@ export class SummerTimeStore {
       }
     } else {
       this.isSummerTime = false;
+      this.setTheSummerTimeStorage = false;
     }
   };
 

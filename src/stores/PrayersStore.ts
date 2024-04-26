@@ -76,37 +76,42 @@ export class PrayersStore {
         {
           prayTitle: "صلاة الفجر",
           prayTime: getThePrayTime(this.todayTimes.fajr?.seconds),
-          prayTimeInSeconds: summerTime.isSummerTime
-            ? this.todayTimes.fajr?.seconds + 3600
-            : this.todayTimes.fajr?.seconds,
+          prayTimeInSeconds:
+            summerTime.isSummerTime === true
+              ? this.todayTimes.fajr?.seconds + 3600
+              : this.todayTimes.fajr?.seconds,
         },
         {
           prayTitle: "صلاة الظهر",
           prayTime: getThePrayTime(this.todayTimes.duhr?.seconds),
-          prayTimeInSeconds: summerTime.isSummerTime
-            ? this.todayTimes.duhr?.seconds + 3600
-            : this.todayTimes.duhr?.seconds,
+          prayTimeInSeconds:
+            summerTime.isSummerTime === true
+              ? this.todayTimes.duhr?.seconds + 3600
+              : this.todayTimes.duhr?.seconds,
         },
         {
           prayTitle: "صلاة العصر",
           prayTime: getThePrayTime(this.todayTimes.asr?.seconds),
-          prayTimeInSeconds: summerTime.isSummerTime
-            ? this.todayTimes.asr?.seconds + 3600
-            : this.todayTimes.asr?.seconds,
+          prayTimeInSeconds:
+            summerTime.isSummerTime === true
+              ? this.todayTimes.asr?.seconds + 3600
+              : this.todayTimes.asr?.seconds,
         },
         {
           prayTitle: "صلاة المغرب",
           prayTime: getThePrayTime(this.todayTimes.mgrb?.seconds),
-          prayTimeInSeconds: summerTime.isSummerTime
-            ? this.todayTimes.mgrb?.seconds + 3600
-            : this.todayTimes.mgrb?.seconds,
+          prayTimeInSeconds:
+            summerTime.isSummerTime === true
+              ? this.todayTimes.mgrb?.seconds + 3600
+              : this.todayTimes.mgrb?.seconds,
         },
         {
           prayTitle: "صلاة العشاء",
           prayTime: getThePrayTime(this.todayTimes.asha?.seconds),
-          prayTimeInSeconds: summerTime.isSummerTime
-            ? this.todayTimes.asha?.seconds + 3600
-            : this.todayTimes.asha?.seconds,
+          prayTimeInSeconds:
+            summerTime.isSummerTime === true
+              ? this.todayTimes.asha?.seconds + 3600
+              : this.todayTimes.asha?.seconds,
         },
       ];
 
@@ -118,9 +123,10 @@ export class PrayersStore {
         if (differneTimeInSeconds > 0) {
           runInAction(() => {
             this.timer = this.formatTime(
-              summerTime.isSummerTime
-                ? differneTimeInSeconds + 3600
-                : differneTimeInSeconds
+              // summerTime.isSummerTime === true
+              //   ? differneTimeInSeconds + 3600
+              //   : differneTimeInSeconds
+              differneTimeInSeconds
             );
           });
           return pray;
