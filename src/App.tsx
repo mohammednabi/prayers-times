@@ -1,10 +1,11 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react-refresh/only-export-components */
 import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import "./App.css";
 import Home from "./pages/Home";
 
 import MainLayout from "./pages/MainLayout";
-import { Suspense, useEffect } from "react";
+import { Suspense, useContext, useEffect } from "react";
 
 import Loading from "./components/Loading";
 import StoreContextProvider from "./components/StoreContextProvider";
@@ -16,10 +17,13 @@ import AdminDashboard from "./pages/AdminDashboard";
 import DoaaKhatm from "./pages/DoaaKhatm";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./firebase/firebaseAuth";
+import { StoreContext } from "./contexts/StoreContext";
+import { observer } from "mobx-react-lite";
 
 const App = () => {
   const { pathname } = useLocation();
   const navigateTo = useNavigate();
+  const { months, summer } = useContext(StoreContext);
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
@@ -32,6 +36,11 @@ const App = () => {
       }
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    months.getAllMonthsData();
+    summer.getTheSummerTime();
   }, []);
 
   return (
@@ -55,4 +64,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default observer(App);

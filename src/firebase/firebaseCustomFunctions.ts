@@ -1,6 +1,7 @@
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "./configration";
 import { prayTime } from "../specificTypes";
+import { SummerTimeStore } from "../stores/SummerTimeStore";
 
 export const allMonths = [
   "jan",
@@ -44,11 +45,17 @@ export const getAllDocuments = async () => {
 // };
 
 export const getThePrayTime = (timeInSeconds?: number) => {
+  const summerTime = new SummerTimeStore();
+  summerTime.getTheSummerTime();
+
   if (timeInSeconds) {
-    return new Date(timeInSeconds * 1000).toLocaleTimeString("ar-EG", {
+    return new Date(
+      (summerTime.isSummerTime ? timeInSeconds + 3600 : timeInSeconds) * 1000
+    ).toLocaleTimeString("ar-EG", {
       hour: "numeric",
       minute: "numeric",
       hourCycle: "h12",
+      // timeZone: "Africa/Cairo",
     });
   }
 };
@@ -56,7 +63,7 @@ export const getThePrayTime = (timeInSeconds?: number) => {
 export const getTheTimeDifference = (timeInSeconds?: number) => {
   const today = new Date();
   const targetDate = timeInSeconds
-    ? new Date(timeInSeconds * 1000)
+    ? new Date((timeInSeconds + 3600) * 1000)
     : new Date();
   const differenceInSeconds = Math.floor(
     targetDate.getTime() - today.getTime()

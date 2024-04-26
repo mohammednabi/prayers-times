@@ -3,6 +3,7 @@ import { useCallback, useContext, useEffect } from "react";
 import { IoLocationOutline } from "react-icons/io5";
 import { StoreContext } from "../contexts/StoreContext";
 import { observer } from "mobx-react-lite";
+import SummerTime from "./SummerTime";
 
 const SalahTime = () => {
   const { prayers } = useContext(StoreContext);
@@ -23,7 +24,7 @@ const SalahTime = () => {
   }, []);
 
   return (
-    <div className="w-full relative h-auto py-5 rounded-3xl bg-lightGreen mt-10 flex justify-center items-center overflow-hidden">
+    <div className="w-full relative h-auto py-5 rounded-3xl bg-lightGreen mt-5 flex justify-center items-center overflow-hidden select-none">
       <div className="relative z-10 flex flex-col justify-center items-center">
         <h1 className="text-white text-xl"> {prayers.nextPrayObj.nextPray}</h1>
         <h1 className="text-white text-5xl font-bold pt-4">
@@ -38,11 +39,12 @@ const SalahTime = () => {
         </div>
         <div className="flex items-center  text-white text-sm mt-10">
           <IoLocationOutline />
-          <h1 className="cursor-pointer" onClick={alertUser}>
+          <h1 className="cursor-pointer select-none" onClick={alertUser}>
             {" "}
             مصر , الأقصر
           </h1>
         </div>
+        <SummerTime />
       </div>
 
       <div className="w-full h-full  absolute ">

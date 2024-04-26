@@ -5,6 +5,7 @@ import { db } from "../firebase/configration";
 import { allMonths, getThePrayTime } from "../firebase/firebaseCustomFunctions";
 import { prayTime } from "../specificTypes";
 import { FieldValues } from "react-hook-form";
+import { SummerTimeStore } from "./SummerTimeStore";
 
 type nextPrayType = {
   nextPray?: string;
@@ -63,6 +64,8 @@ export class PrayersStore {
 
   getTheNextPray = async () => {
     const timeNow = new Date();
+    const summerTime = new SummerTimeStore();
+    summerTime.getTheSummerTime();
 
     if (this.todayTimes.fajr.seconds > 0 && this.todayTimes.fajr.seconds > 0) {
       const prays: {
@@ -73,27 +76,37 @@ export class PrayersStore {
         {
           prayTitle: "صلاة الفجر",
           prayTime: getThePrayTime(this.todayTimes.fajr?.seconds),
-          prayTimeInSeconds: this.todayTimes.fajr?.seconds,
+          prayTimeInSeconds: summerTime.isSummerTime
+            ? this.todayTimes.fajr?.seconds + 3600
+            : this.todayTimes.fajr?.seconds,
         },
         {
           prayTitle: "صلاة الظهر",
           prayTime: getThePrayTime(this.todayTimes.duhr?.seconds),
-          prayTimeInSeconds: this.todayTimes.duhr?.seconds,
+          prayTimeInSeconds: summerTime.isSummerTime
+            ? this.todayTimes.duhr?.seconds + 3600
+            : this.todayTimes.duhr?.seconds,
         },
         {
           prayTitle: "صلاة العصر",
           prayTime: getThePrayTime(this.todayTimes.asr?.seconds),
-          prayTimeInSeconds: this.todayTimes.asr?.seconds,
+          prayTimeInSeconds: summerTime.isSummerTime
+            ? this.todayTimes.asr?.seconds + 3600
+            : this.todayTimes.asr?.seconds,
         },
         {
           prayTitle: "صلاة المغرب",
           prayTime: getThePrayTime(this.todayTimes.mgrb?.seconds),
-          prayTimeInSeconds: this.todayTimes.mgrb?.seconds,
+          prayTimeInSeconds: summerTime.isSummerTime
+            ? this.todayTimes.mgrb?.seconds + 3600
+            : this.todayTimes.mgrb?.seconds,
         },
         {
           prayTitle: "صلاة العشاء",
           prayTime: getThePrayTime(this.todayTimes.asha?.seconds),
-          prayTimeInSeconds: this.todayTimes.asha?.seconds,
+          prayTimeInSeconds: summerTime.isSummerTime
+            ? this.todayTimes.asha?.seconds + 3600
+            : this.todayTimes.asha?.seconds,
         },
       ];
 
@@ -104,7 +117,11 @@ export class PrayersStore {
           1000;
         if (differneTimeInSeconds > 0) {
           runInAction(() => {
-            this.timer = this.formatTime(differneTimeInSeconds);
+            this.timer = this.formatTime(
+              summerTime.isSummerTime
+                ? differneTimeInSeconds + 3600
+                : differneTimeInSeconds
+            );
           });
           return pray;
         }
@@ -124,7 +141,11 @@ export class PrayersStore {
             timeNow.getTime()) /
           1000;
         runInAction(() => {
-          this.timer = this.formatTime(differneTimeInSeconds);
+          this.timer = this.formatTime(
+            summerTime.isSummerTime
+              ? differneTimeInSeconds + 3600
+              : differneTimeInSeconds
+          );
           this.nextPrayObj = {
             nextPray: "صلاة الفجر غدا",
             nextPrayTime: getThePrayTime(this.tommorowTimes.fajr?.seconds),

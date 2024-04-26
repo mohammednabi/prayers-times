@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react-refresh/only-export-components */
 import TimeOfPray from "./TimeOfPray";
 import { BiSun } from "react-icons/bi";
@@ -6,14 +7,14 @@ import { BsCloudSunFill } from "react-icons/bs";
 import { IoMoon } from "react-icons/io5";
 import { BsFillSunsetFill } from "react-icons/bs";
 import { BsFillSunriseFill } from "react-icons/bs";
-import { ReactNode, useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 
 import { StoreContext } from "../contexts/StoreContext";
 import { observer } from "mobx-react-lite";
 import { getThePrayTime } from "../firebase/firebaseCustomFunctions";
 
 const SalawatAllTimes = () => {
-  const { prayers } = useContext(StoreContext);
+  const { prayers, summer } = useContext(StoreContext);
 
   useEffect(() => {
     if (!prayers.todayTimes || Object.keys(prayers.todayTimes).length === 0) {
@@ -28,42 +29,54 @@ const SalawatAllTimes = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const salawat: { title: string; icon: ReactNode; time?: string }[] = [
+  const [salawat, setSalawat] = useState<
     {
-      title: "الفجر",
-      icon: <WiMoonWaxingCrescent3 />,
-      time: getThePrayTime(prayers.todayTimes.fajr?.seconds),
-    },
-    {
-      title: "الشروق",
-      icon: <BsFillSunriseFill />,
-      time: getThePrayTime(prayers.todayTimes.sunrise?.seconds),
-    },
-    {
-      title: "الظهر",
-      icon: <BiSun />,
-      time: getThePrayTime(prayers.todayTimes.duhr?.seconds),
-    },
-    {
-      title: "العصر",
-      icon: <BsCloudSunFill />,
-      time: getThePrayTime(prayers.todayTimes.asr?.seconds),
-    },
-    {
-      title: "المغرب",
-      icon: <BsFillSunsetFill />,
-      time: getThePrayTime(prayers.todayTimes.mgrb?.seconds),
-    },
-    {
-      title: "العشاء",
-      icon: <IoMoon />,
-      time: getThePrayTime(prayers.todayTimes.asha?.seconds),
-    },
-  ];
+      title: string;
+      icon: JSX.Element;
+      time: string | undefined;
+    }[]
+  >();
+
+  useEffect(() => {
+    const computedSalawat = [
+      {
+        title: "الفجر",
+        icon: <WiMoonWaxingCrescent3 />,
+        time: getThePrayTime(prayers.todayTimes.fajr?.seconds),
+      },
+      {
+        title: "الشروق",
+        icon: <BsFillSunriseFill />,
+        time: getThePrayTime(prayers.todayTimes.sunrise?.seconds),
+      },
+      {
+        title: "الظهر",
+        icon: <BiSun />,
+        time: getThePrayTime(prayers.todayTimes.duhr?.seconds),
+      },
+      {
+        title: "العصر",
+        icon: <BsCloudSunFill />,
+        time: getThePrayTime(prayers.todayTimes.asr?.seconds),
+      },
+      {
+        title: "المغرب",
+        icon: <BsFillSunsetFill />,
+        time: getThePrayTime(prayers.todayTimes.mgrb?.seconds),
+      },
+      {
+        title: "العشاء",
+        icon: <IoMoon />,
+        time: getThePrayTime(prayers.todayTimes.asha?.seconds),
+      },
+    ];
+
+    setSalawat(computedSalawat);
+  }, [summer.isSummerTime, prayers.todayTimes]);
 
   return (
     <div className="relative bg-darkGreen w-full rounded-xl mt-5 flex flex-wrap justify-center gap-3 items-center p-5 overflow-hidden">
-      {salawat.map((salat) => (
+      {salawat?.map((salat) => (
         <TimeOfPray
           key={salat.title}
           title={salat.title}

@@ -1,0 +1,12 @@
+/* @keyframes moveRight {
+  from {
+    left: 0;
+  }
+  to {
+    left: 100%;
+  }
+} */
+
+.switchBtn {
+  @apply h-full aspect-square rounded-full  bg-lightBeige shadow-sm absolute top-0 left-0 cursor-pointer;
+}
