@@ -1,5 +1,6 @@
-/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable react-refresh/only-export-components */
+
 import { Container } from "@mui/material";
 import Soon from "../components/Soon";
 import MonthTableCell from "../components/MonthTableCell";

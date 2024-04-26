@@ -10,7 +10,7 @@ import { Suspense, useContext, useEffect } from "react";
 import Loading from "./components/Loading";
 import StoreContextProvider from "./components/StoreContextProvider";
 import MorePage from "./pages/MorePage";
-import PrayPage from "./pages/PrayPage";
+// import PrayPage from "./pages/PrayPage";
 import Tasbih from "./pages/Tasbih";
 import Admin from "./pages/Admin";
 import AdminDashboard from "./pages/AdminDashboard";
@@ -51,7 +51,7 @@ const App = () => {
             <Route path="/" element={<MainLayout />}>
               <Route path="" element={<Home />} />
               <Route path="more" element={<MorePage />}></Route>
-              <Route path="pray" element={<PrayPage />} />
+              {/* <Route path="pray" element={<PrayPage />} /> */}
               <Route path="tasbih" element={<Tasbih />} />
               <Route path="khatm" element={<DoaaKhatm />} />
             </Route>
