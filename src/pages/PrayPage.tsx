@@ -3,21 +3,21 @@
 
 import { Container } from "@mui/material";
 import Soon from "../components/Soon";
-import MonthTableCell from "../components/MonthTableCell";
-import DayTimesCell from "../components/DayTimesCell";
-import { useContext } from "react";
-import { StoreContext } from "../contexts/StoreContext";
+// import MonthTableCell from "../components/MonthTableCell";
+// import DayTimesCell from "../components/DayTimesCell";
+// import { useContext } from "react";
+// import { StoreContext } from "../contexts/StoreContext";
 import { observer } from "mobx-react-lite";
 
 const PrayPage = () => {
-  const { months } = useContext(StoreContext);
-  const timeNow = new Date().toLocaleTimeString("ar-EG", {
-    minute: "2-digit",
-    hour: "numeric",
-    hourCycle: "h12",
-  });
-  const times = ["الفجر", "الشروق", "الظهر", "العصر", "المغرب", "العشاء"];
-  const times2 = [timeNow, timeNow, timeNow, timeNow, timeNow, timeNow];
+  // const { months } = useContext(StoreContext);
+  // const timeNow = new Date().toLocaleTimeString("ar-EG", {
+  //   minute: "2-digit",
+  //   hour: "numeric",
+  //   hourCycle: "h12",
+  // });
+  // const times = ["الفجر", "الشروق", "الظهر", "العصر", "المغرب", "العشاء"];
+  // const times2 = [timeNow, timeNow, timeNow, timeNow, timeNow, timeNow];
 
   // useEffect(() => {
   //   if (Object.keys(months.currenMonthDocument).length > 0) {
