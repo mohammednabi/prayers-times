@@ -16,19 +16,6 @@ import { getThePrayTime } from "../firebase/firebaseCustomFunctions";
 const SalawatAllTimes = () => {
   const { prayers, summer } = useContext(StoreContext);
 
-  useEffect(() => {
-    if (!prayers.todayTimes || Object.keys(prayers.todayTimes).length === 0) {
-      prayers.getTodayPraysTimes();
-    }
-    if (
-      !prayers.tommorowTimes ||
-      Object.keys(prayers.tommorowTimes).length === 0
-    ) {
-      prayers.getTommorowPraysTimes();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
   const [salawat, setSalawat] = useState<
     {
       title: string;

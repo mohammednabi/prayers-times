@@ -10,6 +10,7 @@ import {
 import { useState } from "react";
 import { BiEdit } from "react-icons/bi";
 import { GrPowerReset } from "react-icons/gr";
+import { motion } from "framer-motion";
 
 const Tasbih = () => {
   const [count, setCount] = useState(0);
@@ -86,21 +87,20 @@ const Tasbih = () => {
         </div>
         <Container maxWidth="xs">
           {selection !== "لا محدود" && (
-            <div
-              className="bg-lightBeige select-none cursor-pointer border-2 border-solid border-darkGreen w-10 aspect-square rounded-full flex justify-center items-center"
-              onClick={increse}
-            >
-              <h1 className="text-center text-darkGreen text-xl ">
+            <div className="bg-lightBeige  select-none cursor-pointer border-2 border-solid border-darkGreen w-10 aspect-square rounded-full flex justify-center items-center">
+              <h1 className="text-center text-darkGreen  text-xl ">
                 {numberOfCount}
               </h1>
             </div>
           )}
-          <div
-            className="bg-lightBeige select-none cursor-pointer border-8 border-solid border-darkGreen w-full aspect-square rounded-full flex justify-center items-center"
+          <motion.div
+            initial={{ scale: 1 }}
+            whileTap={{ scale: 0.98 }}
+            className="bg-lightBeige  select-none cursor-pointer border-8 border-solid border-darkGreen w-full aspect-square rounded-full flex justify-center items-center"
             onClick={increse}
           >
             <h1 className="text-center text-darkGreen text-7xl ">{count}</h1>
-          </div>
+          </motion.div>
 
           <div className="flex justify-center items-center">
             <h1 contentEditable className="text-center text-2xl  mt-3">

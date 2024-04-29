@@ -23,7 +23,7 @@ import { observer } from "mobx-react-lite";
 const App = () => {
   const { pathname } = useLocation();
   const navigateTo = useNavigate();
-  const { months, summer } = useContext(StoreContext);
+  const { months, summer, prayers } = useContext(StoreContext);
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
@@ -41,6 +41,19 @@ const App = () => {
   useEffect(() => {
     months.getAllMonthsData();
     summer.getTheSummerTime();
+  }, []);
+
+  useEffect(() => {
+    if (!prayers.todayTimes || Object.keys(prayers.todayTimes).length === 0) {
+      prayers.getTodayPraysTimes();
+    }
+    if (
+      !prayers.tommorowTimes ||
+      Object.keys(prayers.tommorowTimes).length === 0
+    ) {
+      prayers.getTommorowPraysTimes();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
