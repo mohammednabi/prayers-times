@@ -13,10 +13,12 @@ interface DayTimesCellProps {
   // ref?: LegacyRef<HTMLDivElement> | undefined;
 }
 
-const DayTimesCell = forwardRef(function DayTimesCell(
-  { day, times, color }: DayTimesCellProps,
-  ref
-) {
+const DayTimesCell = forwardRef(function DayTimesCell({
+  day,
+  times,
+  color,
+}: DayTimesCellProps) // ref
+{
   return (
     <div
       //  ref={ref}
