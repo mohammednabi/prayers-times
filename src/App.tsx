@@ -27,7 +27,7 @@ const App = () => {
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
-      console.log({ user });
+      // console.log({ user });
       if (user && pathname === "/admin") {
         navigateTo("/admin/dashboard");
       }
@@ -42,6 +42,14 @@ const App = () => {
     months.getAllMonthsData();
     summer.getTheSummerTime();
   }, []);
+
+  useEffect(() => {
+    console.log("getting all current months times");
+    console.log("current month array :", months.currentMonthTimesArray);
+    console.log("current index :", months.CurrentIndex);
+    console.log("months documents :", months.monthsDocuments);
+    months.getAllCurrentMonthsTimes();
+  }, [months.CurrentIndex, months.monthsDocuments, summer.isSummerTime]);
 
   useEffect(() => {
     if (!prayers.todayTimes || Object.keys(prayers.todayTimes).length === 0) {

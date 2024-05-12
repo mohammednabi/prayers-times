@@ -35,7 +35,7 @@ export class PrayersStore {
     const docRef = doc(db, "months", allMonths[today.getMonth()]);
     await getDoc(docRef).then((snapshot) => {
       runInAction(() => {
-        console.log("this is all days :", snapshot.data());
+        // console.log("this is all days :", snapshot.data());
         // this.allDays = snapshot.data()?.days;
         this.todayTimes = snapshot.data()?.days[`${today.getDate()}`];
       });
@@ -178,7 +178,7 @@ export class PrayersStore {
     const docRef = doc(db, "months", allMonths[monthIndex]);
     await getDoc(docRef).then((snapshot) => {
       runInAction(() => {
-        console.log("this is all days of the month :", snapshot.data());
+        // console.log("this is all days of the month :", snapshot.data());
         this.allDays = snapshot.data()?.days;
         // this.todayTimes = snapshot.data()?.days[`${today.getDate()}`];
       });

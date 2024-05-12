@@ -69,7 +69,7 @@ export const getTheTimeDifference = (timeInSeconds?: number) => {
     targetDate.getTime() - today.getTime()
   );
 
-  console.log("this is the difference in seconds: ", differenceInSeconds);
+  // console.log("this is the difference in seconds: ", differenceInSeconds);
 
   return new Date(differenceInSeconds).toLocaleTimeString("ar-EG", {
     hourCycle: "h24",
