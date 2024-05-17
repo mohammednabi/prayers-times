@@ -1,7 +1,9 @@
+/* eslint-disable react-refresh/only-export-components */
 import { Container } from "@mui/material";
 import SalahTime from "../components/SalahTime";
 import TopTime from "../components/TopTime";
 import SalawatAllTimes from "../components/SalawatAllTimes";
+import transition from "../components/transition";
 
 const Home = () => {
   return (
@@ -22,4 +24,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default transition(Home);

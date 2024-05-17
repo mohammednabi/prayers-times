@@ -19,6 +19,7 @@ import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./firebase/firebaseAuth";
 import { StoreContext } from "./contexts/StoreContext";
 import { observer } from "mobx-react-lite";
+import { AnimatePresence } from "framer-motion";
 
 const App = () => {
   const { pathname } = useLocation();
@@ -68,17 +69,19 @@ const App = () => {
     <Suspense fallback={<Loading />}>
       <div>
         <StoreContextProvider>
-          <Routes>
-            <Route path="/" element={<MainLayout />}>
-              <Route path="" element={<Home />} />
-              <Route path="more" element={<MorePage />}></Route>
-              <Route path="pray" element={<PrayPage />} />
-              <Route path="tasbih" element={<Tasbih />} />
-              <Route path="khatm" element={<DoaaKhatm />} />
-            </Route>
-            <Route path="/admin" element={<Admin />} />
-            <Route path="/admin/dashboard" element={<AdminDashboard />} />
-          </Routes>
+          <AnimatePresence mode="wait">
+            <Routes>
+              <Route path="/" element={<MainLayout />}>
+                <Route path="" element={<Home />} />
+                <Route path="more" element={<MorePage />}></Route>
+                <Route path="pray" element={<PrayPage />} />
+                <Route path="tasbih" element={<Tasbih />} />
+                <Route path="khatm" element={<DoaaKhatm />} />
+              </Route>
+              <Route path="/admin" element={<Admin />} />
+              <Route path="/admin/dashboard" element={<AdminDashboard />} />
+            </Routes>
+          </AnimatePresence>
         </StoreContextProvider>
       </div>
     </Suspense>
