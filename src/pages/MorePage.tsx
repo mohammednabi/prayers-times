@@ -1,7 +1,6 @@
 /* eslint-disable react-refresh/only-export-components */
 import { Container } from "@mui/material";
 import MoreElementCircle from "../components/MoreElementCircle";
-import transition from "../components/transition";
 
 const MorePage = () => {
   const elements = [
